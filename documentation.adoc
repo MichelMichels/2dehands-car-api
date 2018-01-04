@@ -1,0 +1,283 @@
+= Documentation for 2dehands.be cars API
+:source-highlighter: highlightjs
+:icons: font
+Author <michel.michels.jr@gmail.com>
+
+== Resource URL
+ https://api.2dehands.com/pub/v2/nl_be/arc/auto ( /{car-make-id}/{car-model-id} )
+
+[NOTE]
+`car-make-id` is a string which is build by the following standard: `auto-{car-make}`. +
+The exact `car-make` string can be found in the JSON response in the `afdelingen` -> `rubrieken` elements +
+in the property array `static-ids`. The same principle holds true for `car-model-id`.
+
+== Resource Information
+
+[cols=2*]
+|===
+|Response formats
+|JSON
+
+|Requires authentication?
+|No
+
+|Rate limited?
+|No
+|===
+
+== Parameters
+[%header]
+|===
+|Name 							|Description 												|Default value 		|Example
+|`price_minimum` 				|Minimum car price 											|0 					|6000
+|`price_maximum`				|Maximum car price 											|					|30000
+|`offset` 						|Start id of first result 									|0 					|0
+|`limit` 						|Amount of results. Options: [1-100] 						|35 				|35
+|`language` 					|Language. Options: 'all', 'fr', 'nl' 						|(unknown) 			|all
+|`country` 						|Country to search cars. Options: 'be', 'nl', 'fr', 'all' 	|(unknown) 			|be
+|`display_refinement` 			|Unknown 													|(unknown) 			|1
+|`display_short_description` 	|Unknown 													|(unknown) 			|1
+|`display_top` 					|Unknown 													|(unknown) 			|1
+|`km_stand` 					|Lower mileage value of car 								|(unknown) 			|1000
+|`km_stand__tot` 				|Upper mileage value of car 								|(unknown) 			|150000
+|`auto_bj` 						|Lower build year of car search 							|(unknown) 			|2000
+|`auto_bj__tot` 				|Upper build year of car search 							|(unknown) 			|2010
+|`sort_by` 						|Type of data to sort results by. Options: 'date', 'price' 	|(unknown) 			|date
+|`sort_order` 					|Sort order of results. Options: 'asc', 'desc' 				|(unknown) 			|desc
+|===
+
+== Example Request
+ GET https://api.2dehands.com/pub/v2/nl_be/arc/auto?&price_minimum=6000&price_maximum=30000&offset=0&limit=35&language=all&country=be&display_refinements=1&display_short_description=1&display_top=1&km_stand__tot=140000&auto_bj=2002&auto_bj__tot=2007&km_stand=50000&sort_by=date&sort_order=desc
+
+== Example Response
+[source,JSON,options="nowrap"]
+----
+{
+	"next_page":"https://api.2dehands.com/pub/v2/nl_be/arc/auto?country=be&sort_order=desc&sort_by=date&language=all&display_short_description=1&display_top=1&display_refinements=1&price_minimum=6000&price_maximum=30000&limit=35&offset=35",
+	"afdelingen":[
+		{
+			"rubrieken":[
+				{
+					"count":235,
+					"url":"https://api.2dehands.com/pub/v2/nl_be/arc/auto/auto-mercedes-benz?country=be&sort_order=desc&sort_by=date&language=all&display_short_description=1&display_top=1&display_refinements=1&price_minimum=6000&price_maximum=30000&limit=35",
+					"static_ids":["auto","auto-mercedes-benz"],
+					"title":"Mercedes-Benz",
+					"arc":["auto","auto-mercedes-benz"],
+					"origin_url":"https://www.2dehands.be/autos/mercedes-benz"
+				},
+				{
+					"count":217,
+					"url":"https://api.2dehands.com/pub/v2/nl_be/arc/auto/auto-bmw?country=be&sort_order=desc&sort_by=date&language=all&display_short_description=1&display_top=1&display_refinements=1&price_minimum=6000&price_maximum=30000&limit=35",
+					"static_ids":["auto","auto-bmw"],
+					"title":"BMW",
+					"arc":["auto","auto-bmw"],
+					"origin_url":"https://www.2dehands.be/autos/bmw"
+				},
+				... <1>
+			],
+			"url": "https://api.2dehands.com/pub/v2/nl_be/arc/auto?country=be&sort_order=desc&sort_by=date&language=all&display_short_description=1&display_top=1&display_refinements=1&price_minimum=6000&price_maximum=30000&limit=35",
+			"static_ids": [
+				"auto"
+			],
+			"title": "Auto's",
+			"arc": [
+				"auto"
+			],
+			"origin_url" "https://www.2dehands.be/autos"
+		}
+	],
+	"count": 1255,
+	"url": "https://api.2dehands.com/pub/v2/nl_be/arc/auto?country=be&sort_order=desc&sort_by=date&language=all&display_short_description=1&display_top=1&display_refinements=1&price_minimum=6000&price_maximum=30000&limit=35&offset=0",
+	"result":[
+		{
+			"thumbnail": {
+				"width":133,
+				"url":"https://img.2dehands.be/f/listthumb/377364962.jpg",
+				"height":100
+			},
+			"is_top_ad": 1,
+			"first_image": {
+				"tiny": {
+					"width":50,
+					"url":"https://img.2dehands.be/f/tiny/377364962.jpg",
+					"height":38
+				},
+				"normal":{
+					"width":728,
+					"url":"https://img.2dehands.be/f/normal/377364962.jpg",
+					"height":546
+				},
+				"preview":{
+					"width":440,
+					"url":"https://img.2dehands.be/f/preview/377364962.jpg",
+					"height":330
+				},
+				"listthumb":{
+					"width":133,
+					"url":"https://img.2dehands.be/f/listthumb/377364962.jpg",
+					"height":100
+				}
+			},
+			"adv_id":{
+				"value":377364962,
+				"title":"Zoekertjenummer"
+			},
+			"origin_url":"https://www.2dehands.be/autos/bmw/5-reeks/bmw-520d-touring-e61-automatique-377364962.html",
+			"datetime":{
+				"value": "Fri, 20 Oct 2017 15:58:50 +0200",
+				"title": "Geplaatst op"
+			},
+			"short_description":{
+				"value": "Particulier vend superbe BMW 520D Touring (E61) automatique de 2006, 127.000 Kms Tous entretiens OK, CT vierge => 17/10/2018, Carpass, Diesel, 1995cc, 120 Kw/163 cv. Filtre à particules. Boite de vitesses automatique, 6 vitesses, mode confort & sport, manuelle séquentielle. Kit « M Sport » d’origine comprenant : • Sièges sport, électriques, cuir dakota fauve • Suspension sport • Kit aérodynamique AV/AR • Teinte extérieure « carbon schwartz métallic » • Volant réglable, multifonctions « M » • Ciel de toit...",
+				"title": "Korte omschrijving"
+			},
+			"city":{
+				"value": "Neupré",
+				"title": "Plaatsnaam"
+			},
+			"extra_info":{
+				"seller_name":"nanou",
+				"attributes":{
+					"km_stand":{
+						"value":"127.800 km",
+						"title":"Kilometerstand"
+					},
+					"auto_transmissie":{
+						"value":"Automatisch",
+						"title":"Transmissie"
+					},
+					"auto_brandstof":{
+						"value":"Diesel",
+						"title":"Brandstof"
+					},
+					"auto_bj":{
+						"value":"2006",
+						"title":"Bouwjaar"
+					}
+				}
+			},
+			"url":"https://api.2dehands.com/pub/v2/nl_be/arc/auto/auto-bmw/auto-bmw-5-serie/377364962",
+			"price":{
+				"value":"€ 9.900,00",
+				"title":"Prijs"
+			},
+			"title":{
+				"value":"BMW 520D Touring (E61) automatique - Kit \"M Sport\"-127000Km",
+				"title":"Titel"
+			}
+		},
+		... <2>
+	]
+}
+----
+<1> Other 'rubrieken' items omitted
+<2> Other 'result' items omitted
+
+== Example response explanation
+
+=== Overview of response
+
+Short overview of the complete JSON API response data.
+
+.source
+[source,JSON,options="nowrap"]
+----
+{
+	"next_page": "...", <1>
+	"afdelingen": [
+		{
+			"rubrieken": [ ... ], <2>
+			"url": "...", <3>
+			"static_ids": [ ...	], <4>
+			"title": "...", <5>
+			"arc": [ ... ], <6>
+			"origin_url": "..." <7>
+		}
+	],
+	"count": 1255, <8>
+	"url": "...", <9>
+	"result": [] <10>
+}
+----
+<1> API URL of next data with same search settings as current API call
+<2> All the `rubrieken` elements omitted
+<3> API URL of current data
+<4> `static_ids` contains strings to create the current API URL
+<5> Title of current `afdelingen` element
+<6> `arc` contains same info as `static_ids`
+<7> URL of site page
+<8> Number of total results found
+<9> Current API URL
+<10> All the `result` elements omitted
+
+=== `afdelingen` -> `rubrieken` element
+
+Every element in this array represents a car make if the base API URL is queried. +
+When there is a specific car make specified, these elements will represent car models.
+
+.source
+[source,JSON,options="nowrap"]
+----
+...
+{
+	"count":235, <1>
+	"url":"https://api.2dehands.com/pub/v2/nl_be/arc/auto/auto-mercedes-benz?country=be&sort_order=desc&sort_by=date&language=all&display_short_description=1&display_top=1&display_refinements=1&price_minimum=6000&price_maximum=30000&limit=35", <2>
+	"static_ids":["auto","auto-mercedes-benz"], <3>
+	"title":"Mercedes-Benz", <4>
+	"arc":["auto","auto-mercedes-benz"], <5>
+	"origin_url":"https://www.2dehands.be/autos/mercedes-benz" <6>
+},
+...
+----
+<1> Number of results of this specific car make/model
+<2> URL for these results
+<3> `static-ids` to create this specific API URL
+<4> Title of this specific car make/model
+<5> Same info as `static-ids`
+<6> URL for website
+
+=== `result` element
+
+.source
+[source,JSON,options="nowrap"]
+----
+...
+{
+	"thumbnail": {}, <1>
+	"is_top_ad": 1, <2>
+	"first_image": {}, <3>
+	"adv_id": {}, <4>
+	"origin_url": "...", <5>
+	"datetime": {}, <6>
+	"short_description": {}, <7>
+	"city": {}, <8>
+	"extra_info":{
+		"seller_name": "...",
+		"attributes":{
+			"km_stand": {}, <9>
+			"auto_transmissie": {}, <10>
+			"auto_brandstof": {}, <11>
+			"auto_bj": {} <12>
+		}
+	},
+	"url": "...", <13>
+	"price": {}, <14>
+	"title": {} <15>
+},
+...
+----
+<1> Thumbnail properties: `width`, `height`, `url`
+<2> Boolean if advertisement is paid to be the top ad
+<3> Various formats of the first image to show; each format has same properties as `thumbnail`. Formats: `tiny`, `normal`, `preview`, `listthumb`
+<4> Contains advertisement id. Properties: `value` (contains numeric id of ad), `title` (contains loc. string of "advertisementnumber")
+<5> Website URL of result
+<6> Contains datetime. Properties: `value` (contains a datetime string with python format: `%a, %d %b %Y %H:%M:%S %z`), `title` (contains loc. string of "Posted on")
+<7> Contains short description of ad. Properties: `value`, `title` (contains loc. string of "Short description")
+<8> Contains city name. Properties: `value`, `title` (contains loc. string of "Cityname")
+<9> Contains total kilometers. Properties: `value` (contains amount of km in string with format  `XXX.XXX km`), `title` (contains loc. string of "Mileage")
+<10> Contains transmission type. Properties: `value`, `title` (contains loc. string of "Transmission")
+<11> Contains car fuel type. Properties: `value`, `title` (contains loc. string of "Fuel")
+<12> Contains car build year. Properties: `value` (contains year in format `XXXX`), `title` (contains loc. string of "Build year")
+<13> Contains API URL of specific advertisement
+<14> Contains price. Properties: `value` (contains price in format `€ XX.XXX,XX`), `title` (contains loc. string of "Price")
+<15> Contains ad title. Properties: `value`, `title` (contains loc. string of "Title")
