@@ -22,7 +22,7 @@ in the property array `static-ids`. The same principle holds true for `car-model
 |No
 
 |Rate limited?
-|No
+|No (did not encounter limitations when testing)
 |===
 
 == Parameters
